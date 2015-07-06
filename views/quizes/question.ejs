@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %>: el juego de las preguntas</h1>
-    <form method="get" action="/quizes/answer">
-    	<h3>Pregunta: <%= pregunta %></h3>
-      <div class="form-group">
-    	 <input type="text" name="respuesta" placeholder="Responda aquí" class="form-control input-lg"/>
-      </div>
-    	<input type="submit" value="Enviar" class="btn btn-lg btn-info">
-    </form>
-  </body>
-</html>
+<form method="get" action="/quizes/answer">
+	<h3>Pregunta: <%= pregunta %></h3>
+  <div class="form-group">
+	 <input type="text" name="respuesta" placeholder="Responda aquí" class="form-control input-lg"/>
+  </div>
+	<input type="submit" value="Enviar" class="btn btn-lg btn-info">
+</form>
