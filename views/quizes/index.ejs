@@ -1,0 +1,4 @@
+<h3><%= title %></h3>
+<% var i; for(i=0;i<quizes.length;i++){ %>
+	<article><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></article>
+<% } %>

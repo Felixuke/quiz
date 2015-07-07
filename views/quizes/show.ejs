@@ -1,5 +1,5 @@
-<form method="get" action="/quizes/answer">
-	<h3>Pregunta: <%= pregunta %></h3>
+<form method="get" action="/quizes/<%= quiz.id %>/answer">
+	<h3>Pregunta: <%= quiz.pregunta %></h3>
   <div class="form-group">
 	 <input type="text" name="respuesta" placeholder="Responda aquí" class="form-control input-lg"/>
   </div>
