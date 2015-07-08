@@ -12,10 +12,18 @@ exports.load = function(req,res,next,quizId){
 	).catch(function(error) { next(error); });
 };
 
-//GET /quizes
+//GET /quizes y /quizes?search=
 exports.index = function(req,res){
-	models.Quiz.findAll().then(function(quizes){
-		res.render('quizes/index',{quizes:quizes,title:'Quizes'});
+	var busqueda = "";
+	var title = "Quizes"
+	if (req.query.search !== undefined) {
+		var searchSQL = req.query.search.replace(' ','%');
+		searchSQL = '%'+searchSQL+'%';
+		busqueda = {where: ["pregunta like ?", searchSQL], order: 'pregunta ASC'};
+		title = 'Búsqueda "' + req.query.search + '"';
+	}
+	models.Quiz.findAll(busqueda).then(function(quizes){
+		res.render('quizes/index',{quizes:quizes,title:title});
 	}).catch(function(error) { next(error); });
 };
 
@@ -31,5 +39,4 @@ exports.answer = function(req,res){
 		resultado='Correcto';
 	}
 	res.render('quizes/answer',{quiz:req.quiz,respuesta:resultado,title:'Quiz'});
-	
 };

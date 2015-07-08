@@ -10,3 +10,16 @@ section h4 { font-size: 24px; }
 #page-wrap { margin: 2% auto; color: white; }
 #page-wrap > .main { border: 1px solid #999; padding: 1%;
 					 margin-bottom: 1px; color: black; }
+/*#s1 input.form-control{
+	display: inline-block;
+	width: 55%;
+}*/
+.col-buscar,.col-quizes{
+	display: inline-block;
+	padding: 15px;
+	vertical-align: top;
+	width: 39%;
+}
+.col-quizes{
+	width: 59%;
+}
