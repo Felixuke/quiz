@@ -23,7 +23,7 @@ router.delete('/quizes/:quizId(\\d+)' , quizController.destroy);
 
 /* GET author page. */
 router.get('/author', function(req, res) {
-  res.render('author', { author: 'Félix Guerra', info: 'Alumno de MiriadaX.' });
+  res.render('author', { author: 'Félix Guerra', info: 'Alumno de MiriadaX.' ,errors:[]});
 });
 
 module.exports = router;
