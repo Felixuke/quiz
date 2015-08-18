@@ -1,0 +1,7 @@
+<h3><%= title %></h3>
+<form method="POST" action="/quizes/<%=quizid%>/comments/">
+	<div class="form-group">
+		<input type="text" id="comment" name="comment[texto]" value="" class="form-control input-lg"/>
+	</div>
+	<button type="submit" class="btn btn-success">Enviar</button>
+</form>

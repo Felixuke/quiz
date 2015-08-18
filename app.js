@@ -10,6 +10,9 @@ var partials = require('express-partials');
 // para que coja el PUT y no el POST que viene en la variable _method
 var methodOverride = require('method-override');
 
+//Para las sesiones de usuarios
+var session = require('express-session');
+
 var routes = require('./routes/index');
 
 var app = express();
@@ -28,11 +31,42 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+//Añadir semilla para cifrar cookie
+app.use(cookieParser('Quiz 2015'));
+//Añado la sesiones a mi app
+app.use(session());
 // para que coja el PUT y no el POST que viene en la variable _method
 app.use(methodOverride('_method'));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Helpers dinamicos:
+app.use(function(req, res, next) {
+    if(req.session.user){
+        tiempoExpera = 2*60*1000;
+        tiempoActual= new Date(Date.now()-tiempoExpera).getTime();
+        if(req.session.user.tiempo < tiempoActual){
+            delete req.session.user;
+        }else{
+            req.session.user.tiempo=new Date(Date.now()).getTime();
+            req.session.user.actual=tiempoActual;
+            res.locals.session = req.session;
+        }
+    }
+    next(); 
+});
+
+//Helpers dinamicos:
+app.use(function(req, res, next) {
+    //guardar path en session.redir para despues de login
+    if(req.method==='GET' && !req.path.match(/\/login|\/logout/)){
+        req.session.redir = req.path;
+    }
+    //Hacer visible la session en las vista
+    res.locals.session = req.session;
+    next();
+});
+
 
 app.use('/', routes);
 

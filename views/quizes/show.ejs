@@ -5,3 +5,14 @@
   </div>
 	<input type="submit" value="Enviar" class="btn btn-lg btn-info">
 </form>
+<br>
+<p><a href="/quizes/<%= quiz.id %>/comments/new"><button class="btn btn-success">Nuevo Comentario</button></a></p>
+<p><strong>Comentarios:</strong></p>
+<% for (index in quiz.comments){ %>
+	<% if(quiz.comments[index].publicado || session.user){ %>
+		<p>- <%= quiz.comments[index].texto %></p>
+		<% if(session.user && !quiz.comments[index].publicado){ %>
+			<a href="/quizes/<%= quiz.id %>/comments/<%=quiz.comments[index].id%>/publish"><button>Publicar</button></a>
+		<%}%>
+	<%}%>
+<%}%>

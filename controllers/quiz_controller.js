@@ -2,7 +2,11 @@ var models = require('../models/models.js');
 
 // Autoload - factoriza el codigo si su ruta incluye :quizId - Gestion de errores - Pregunta no existe en DB
 exports.load = function(req,res,next,quizId){
-	models.Quiz.find(quizId).then(
+	models.Quiz.find(
+		{
+			where: { id: Number(quizId)},
+			include: [{ model: models.Comment}]
+		}).then(
 		function(quiz){
 			if(quiz){
 				req.quiz = quiz;
@@ -74,8 +78,12 @@ exports.create = function(req,res){
 
 // GET /quizes/:id/edit
 exports.edit = function(req,res){
-	var quiz=req.quiz; // autoload de instanca quiz
-	res.render('quizes/edit',{quiz:quiz,title:'Editar Quiz', errors:[]});
+	//if(req.session.user){
+		var quiz=req.quiz; // autoload de instanca quiz
+		res.render('quizes/edit',{quiz:quiz,title:'Editar Quiz', errors:[]});
+	/*}else{
+		res.redirect('/quizes');
+	}*/
 };
 
 // PUT /quizes/:id
